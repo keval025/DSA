@@ -49,7 +49,9 @@ int main(){
 
     vector<vector<int>> vec;
     for(int i=0;i<edges;i++){
-        cin >> vec[i];
+        int a;
+        cin >> a;
+        vec[i][]
     }
 
     return dijkstra(vec, vertices, edges, src);

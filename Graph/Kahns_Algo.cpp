@@ -7,17 +7,17 @@ using namespace std;
 
 vector<int> topologicalSort(vector<vector<int>> &edges, int v, int e){
     //create adjList
-    vector<int, list<int>> adjList; 
+    vector<list<int>> adjList(v); 
     for(int i=0;i<e;++i){
         int u = edges[i][0];
-        int v = edges[i][1];
+        int vv = edges[i][1];
 
-        adjList[u].push_back(v);
+        adjList[u].push_back(vv);
     }
 
     vector<int> inDegree(v);
-    for(auto i : adjList){
-        for(auto j : i.second){
+    for(const auto &nbrs : adjList){
+        for(int j : nbrs){
             inDegree[j]++;
         }
     }
@@ -38,10 +38,10 @@ vector<int> topologicalSort(vector<vector<int>> &edges, int v, int e){
         ans.push_back(front);
 
         //neighbour indegree update
-        for(auto neighbour : adjList[front]){
-            indegree[neighbour]--;
+        for(int neighbour : adjList[front]){
+            inDegree[neighbour]--;
             if(inDegree[neighbour] == 0){
-                p.push(neighbour);
+                q.push(neighbour);
             }
         }
     }
@@ -50,9 +50,15 @@ vector<int> topologicalSort(vector<vector<int>> &edges, int v, int e){
 
 int main(){
     int v, e;
-    cin >> v >> e;
-    vector<vector<int>> edges;
-    cin >> edges;
+    if(!(cin >> v >> e)) return 0;
+    vector<vector<int>> edges(e, vector<int>(2));
+    for(int i=0;i<e;++i){
+        cin >> edges[i][0] >> edges[i][1];
+    }
 
-    return topologicalSort(edges, v, e);
+    vector<int> order = topologicalSort(edges, v, e);
+    for(size_t i=0;i<order.size();++i){
+        cout << order[i] << (i + 1 < order.size() ? ' ' : '\n');
+    }
+    return 0;
 }
