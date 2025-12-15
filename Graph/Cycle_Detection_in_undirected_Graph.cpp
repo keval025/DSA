@@ -9,20 +9,20 @@ bool isCyclic(int src, unordered_map<int, bool>& visited, unordered_map<int, lis
     unordered_map<int, int> parent;
 
     parent[src] = -1;
-    isited[src] = 1;
+    visited[src] = true;
     queue<int> q;
     q.push(src);
 
-    while(!q.empt()){
-        int front = q.front;
+    while(!q.empty()){
+        int front = q.front();
         q.pop();
 
         for(auto neighbour : adjList[front]){
             if(visited[neighbour] == true && neighbour != parent[front]){
                 return true;
-            }else if(!visited[neightbour]){
+            }else if(!visited[neighbour]){
                 q.push(neighbour);
-                visited[neighbour] = 1;
+                visited[neighbour] = true;
                 parent[neighbour] = front;
             }
         }
@@ -37,7 +37,7 @@ string cycleDetection(vector<vector<int>> &edges, int n, int m){
         int u = edges[i][0];
         int v = edges[i][1];
 
-        adjlist[u].push_back(v);
+        adjList[u].push_back(v);
         adjList[v].push_back(u);
     }
 
@@ -58,7 +58,12 @@ int main(){
     int n, m;
     cin >> n >> m;
     vector<vector<int>> edges;
-    cin >> edges;
+    for(int i=0;i<m;i++){
+        int u, v;
+        cin >> u >> v;
+        edges.push_back({u, v});
+    }
 
-    return cycleDetection(edges, n, m);
+    cout << cycleDetection(edges, n, m) << endl;
+    return 0;
 }
