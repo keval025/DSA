@@ -54,4 +54,4 @@ int main(){
     cout << s.peek() << endl;
     s.pop();
     cout << s.pop() << s.peek() << endl;
-}
+}  
