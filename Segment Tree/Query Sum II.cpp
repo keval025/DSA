@@ -52,7 +52,7 @@ int main(){
         int l = queries[i][0];
         int r = queries[i][1];
 
-        result[i] = querySum(l, r,0, 0, n-1, segmentTree);
+        result[i] = querySum(l, r, 0, 0, n-1, segmentTree);
     }
     for(int i=0;i<q;i++){
         cout << result[i] << " ";
